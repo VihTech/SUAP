@@ -27,7 +27,7 @@ def tratamento_matricula_existente(matricula, dicionario):
 
 def cadastrar(dicionario, nome, nome_do_arquivo):
     if tratamento_nome(nome):
-        dicionario[matricula_incremental(dicionario)] = nome
+        dicionario[str(matricula_incremental(dicionario))] = nome
         salvar_dicionarios(dicionario, nome_do_arquivo)
         pegar_dicionario(nome_do_arquivo)
         return True

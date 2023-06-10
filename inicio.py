@@ -175,7 +175,7 @@ while True:
                 while True:
                     nome = input('\n>>> Digite um nome para cadastrar: ')
                     resultado = cadastrar(dicionario_aluno, nome, 'alunos')
-                    if cadastrar(dicionario_aluno, nome, 'alunos'):
+                    if resultado:
                         print('\n---Cadastro Efetuado---')
                         break
             
