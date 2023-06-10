@@ -134,3 +134,16 @@ def tratamento_atualizando_professor(dicionario_turma, dicionario_professor, mat
         
     salvar_dicionarios(dicionario_turma, nome_do_arquivo)
     pegar_dicionario(nome_do_arquivo)
+
+def tratamento_apagar_aluno(dicionario, matricula, nome_do_arquivo):
+    for materias in dicionario.values():
+        for alunos in materias.values():
+            index = 0
+            if type(alunos) == list:
+                for nomes in alunos:
+                    if matricula in nomes:
+                        alunos.pop(index)
+                    index += 1
+    salvar_dicionarios(dicionario, nome_do_arquivo)
+    pegar_dicionario(nome_do_arquivo)
+

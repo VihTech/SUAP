@@ -5,8 +5,6 @@ dicionario_aluno = pegar_dicionario('alunos')
 dicionario_professor = pegar_dicionario('professores')
 dicionario_turma = pegar_dicionario('turmas')
 
-# tratamento_atualizando_professor(dicionario_turma, dicionario_professor, '1', 'Vitoria Maria', 'turmas')
-
 while True:
     escolha = menu_principal()
     
@@ -209,7 +207,12 @@ while True:
                         if nome in 'sS':
                             break
                         else:
-                            apagar(dicionario_aluno, pesquisar_usuario(dicionario_aluno, nome, 'apagar'), 'alunos' )
+                            matricula = pesquisar_usuario(dicionario_aluno, nome, 'apagar')
+
+                            if matricula == False:
+                                continue
+                            apagar(dicionario_aluno, matricula, 'alunos' )
+                            tratamento_apagar_aluno(dicionario_turma, matricula, 'turmas')
                             break
 
             elif escolha == '0':
