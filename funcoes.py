@@ -150,7 +150,6 @@ def tratamento_apagar_aluno(dicionario, matricula, nome_do_arquivo):
 def tratamento_atualizando_aluno(dicionario_turma, matricula, novo_nome, nome_do_arquivo):
     for materias in dicionario_turma.values():
         for alunos in materias.values():
-            index = 0
             if type(alunos) == list:
                 for nomes in alunos:
                     if matricula in nomes:
