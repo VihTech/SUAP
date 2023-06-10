@@ -5,6 +5,7 @@ dicionario_aluno = pegar_dicionario('alunos')
 dicionario_professor = pegar_dicionario('professores')
 dicionario_turma = pegar_dicionario('turmas')
 
+
 while True:
     escolha = menu_principal()
     
@@ -182,15 +183,23 @@ while True:
                 if len(dicionario_aluno) == 0:
                     print('\n---Não possui alunos cadastradas---')
                 else:
-                    while True:
+                    atualizar_loop = True
+                    while atualizar_loop:
                         nome = input('\n>>> Digite o nome que deseja pesquisar ou [s] para sair: ')
                         if nome in 'sS':
                             break
-
-                        if tratamento_nome(nome):
-                            atualizar(dicionario_aluno, pesquisar_usuario(dicionario_aluno, nome, 'atualizar'), 'alunos' )
-                            break
-                        print('\n--- O nome deve ser composto e não pode conter números---')
+                        else:
+                            matricula = pesquisar_usuario(dicionario_aluno, nome, 'atualizar')
+                            while True:
+                                nome = input('\n>>> Digite o novo nome que deseja colocar: ')
+                                if tratamento_nome(nome):
+                                    tratamento_atualizando_aluno(dicionario_turma, matricula, nome, 'turmas')
+                                    atualizar(dicionario_aluno, nome, matricula, 'alunos')
+                                    atualizar_loop = False
+                                    break
+                                    
+                                print('\n---O nome deve ser composto e não pode conter números---')  
+                                continue
 
             elif escolha == '3':
                 if len(dicionario_aluno) == 0:
