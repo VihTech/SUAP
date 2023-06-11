@@ -45,18 +45,11 @@ while True:
                         dicionario_professor_turma[matricula] = dicionario_professor[matricula]
 
                         while True:
-                            nome_usuario = input('\n>>> Digite o nome do aluno que deseja colocar ou [s] para sair: ')
-
-                            if nome_usuario in 'sS':
-                                break
-                            matricula = pesquisar_usuario(dicionario_aluno, nome_usuario, 'adicionar')
-
-                            if matricula == False:
+                            dicionario_para_armazenar_alunos = adicionar_aluno_na_turma(dicionario_aluno)
+                            if dicionario_para_armazenar_alunos in lista_aluno:
+                                print('\n--- Esse aluno já está cadastrado na turma ---')
                                 continue
-                            
-                            dicionario_aluno_turma = {}
-                            dicionario_aluno_turma[matricula] = dicionario_aluno[matricula]
-                            lista_aluno.append(dicionario_aluno_turma)
+                            lista_aluno.append(dicionario_para_armazenar_alunos)
                             escolha = input('\n>>> Deseja adicionar outro alunos? [s]im ou [n]ão: ')
                             if escolha in 'sS':
                                 continue
@@ -83,7 +76,15 @@ while True:
                 if len(dicionario_turma) == 0:
                     print('\n---Não possui turmas cadastradas---')
                 else:
-                    print('apagar Turma')
+                    lista_de_turmas = ver_turmas(dicionario_turma)
+                    while True:
+                        escolha = input('\n>>> Escolha uma turma para apagar: ')
+                        if escolha.isnumeric():
+                            if int(escolha) <= len(lista_de_turmas):
+                                deletar_turma(dicionario_turma, lista_de_turmas[int(escolha)], 'turmas')
+                                break
+                        print('\n---Escolha Inválida---')
+                        continue
 
             elif escolha == '0':
                 break

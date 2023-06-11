@@ -114,6 +114,23 @@ def checar_professor(dicionario, matricula):
         index += 1
     return True
 
+def adicionar_aluno_na_turma(dicionario):
+
+    while True:
+        nome_usuario = input('\n>>> Digite o nome do aluno que deseja colocar ou [s] para sair: ')
+
+        if nome_usuario in 'sS':
+            break
+        matricula = pesquisar_usuario(dicionario, nome_usuario, 'adicionar')
+
+        if matricula == False:
+            continue
+        
+        dicionario_aluno_turma = {}
+        dicionario_aluno_turma[matricula] = dicionario[matricula]
+        return dicionario_aluno_turma
+
+
 def tratamento_apagando_professor(dicionario, matricula, nome_do_arquivo):
     lista_para_deletar = []
     for materias in dicionario.keys():
@@ -156,4 +173,54 @@ def tratamento_atualizando_aluno(dicionario_turma, matricula, novo_nome, nome_do
                         nomes[matricula] = novo_nome
 
     salvar_dicionarios(dicionario_turma, nome_do_arquivo)
+    pegar_dicionario(nome_do_arquivo)
+
+def ver_todas_as_turmas(dicionario):
+    lista_de_materias = []
+    print('\n======== MATERIAS ========')
+    index = 0
+    for materias in dicionario.keys():
+       print(f'{index} - {materias}')
+       lista_de_materias.append(materias)
+       index += 1
+
+    return lista_de_materias
+
+
+
+def ver_turmas(dicionario):
+
+    while True:
+        lista_de_materias = []
+        escolha = input("\n>>> Pesquiser por uma turma ou \n[1] Ver todas \n[s] Sair\nEscolha: ") 
+        if escolha != '1' and escolha != 's':
+            for materias in dicionario.keys():
+                for palavras in escolha.split():
+                    if palavras.title() in materias:
+                        if materias not in lista_de_materias:
+                            lista_de_materias.append(materias)
+
+            if len(lista_de_materias) == 0:
+                print('\n--- Materia não encontrada no sistema---')
+                continue
+            index = 0
+            print('\n===== MATERIAS ======')
+            for materias in lista_de_materias:
+                print(f'{index} - {materias}')
+                index += 1
+            return lista_de_materias
+
+        elif escolha == '1':
+            return ver_todas_as_turmas(dicionario)
+        
+        elif escolha in 'sS':
+            break
+            
+        print('\n--- Valor invalido ----')
+        continue
+
+def deletar_turma(dicionario, materia, nome_do_arquivo):
+    del dicionario[materia]
+    print('\n---Materia deletada com sucesso!---')
+    salvar_dicionarios(dicionario, nome_do_arquivo)
     pegar_dicionario(nome_do_arquivo)
