@@ -214,7 +214,7 @@ def ver_turmas(dicionario):
             return ver_todas_as_turmas(dicionario)
         
         elif escolha in 'sS':
-            break
+            return False
             
         print('\n--- Valor invalido ----')
         continue

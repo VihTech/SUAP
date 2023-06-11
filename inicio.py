@@ -77,6 +77,9 @@ while True:
                     print('\n---Não possui turmas cadastradas---')
                 else:
                     lista_de_turmas = ver_turmas(dicionario_turma)
+
+                    if not lista_de_turmas:
+                        break
                     while True:
                         escolha = input('\n>>> Escolha uma turma para apagar: ')
                         if escolha.isnumeric():
