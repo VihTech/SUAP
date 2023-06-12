@@ -237,4 +237,19 @@ def mostrar_turma(dicionario, turma_selecionada):
                     print(f'\t{nome} - {matricula}')
     print(f'\n ============================================')
     
+def editar_turma(dicionario_turma, dicionario_professor):
+    lista_de_turmas = ver_turmas(dicionario_turma)
+    while True:
+        pessoa_a_editar = input("Selecione que tipo de pessoa deseja alterar\n [1] - Professor\n [2] - Alunos\n [0] - Voltar\n Escolha: ")
+        if pessoa_a_editar == '1':
+            ...
+        elif pessoa_a_editar == '2':
+            pass
+        elif pessoa_a_editar == '0':
+            break
+        else:
+            print("\n-- Opção inválida! --")
+            
+        
+            # pesquisar_usuario(dicionario, nome, acao)
         
