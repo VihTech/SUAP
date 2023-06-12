@@ -5,7 +5,14 @@ dicionario_aluno = pegar_dicionario('alunos')
 dicionario_professor = pegar_dicionario('professores')
 dicionario_turma = pegar_dicionario('turmas')
 
+## Variáveis compativeis com erros:
+
+ausencia_cadastro_professores = '\n -- Você não possui professores cadastrados!, Ou eles foram apagados, Tente criar um! --'
+ausencia_cadastro_alunos = '\n -- Você não possui alunos cadastrados!, Ou eles foram apagados!, Tente criar um! --'
+ausencia_cadastro_turmas = '\n -- Você não possui turmas cadastradas!, Ou elas foram apagadas!, Tente criar uma! --'
+
 while True:
+    
     escolha = menu_principal()
     
     if escolha == '1':
@@ -15,7 +22,7 @@ while True:
             if escolha == '1':
                 adicionar_turma = True
                 if len(dicionario_professor) == 0:
-                    print('\n---Sem professores cadastrados não é possível criar uma turma---')
+                    print('\n--- Sem professores cadastrados não é possível criar uma turma ---')
                     continue              
                 while adicionar_turma:
                     lista_aluno = []
@@ -26,7 +33,7 @@ while True:
                         break
 
                     if nome in dicionario_turma:
-                        print('\n---Turma já existente---')
+                        print('\n--- Turma já existente ---')
                         continue
 
                     procurar_professor = True
@@ -60,13 +67,13 @@ while True:
 
             elif escolha == '2':
                 if len(dicionario_turma) == 0:
-                    print('\n---Não possui turmas cadastradas---')
+                    print(ausencia_cadastro_turmas)
                 else:
                     print('Editar Turma')
 
             elif escolha == '3':
                 if len(dicionario_turma) == 0:
-                    print('\n---Não possui turmas cadastradas---')
+                    print(ausencia_cadastro_turmas)
                 else:
                     lista_de_turmas = ver_turmas(dicionario_turma)
                     if not lista_de_turmas:
@@ -81,7 +88,7 @@ while True:
                             
             elif escolha == '4':
                 if len(dicionario_turma) == 0:
-                    print('\n---Não possui turmas cadastradas---')
+                    print(ausencia_cadastro_turmas)
                 else:
                     lista_de_turmas = ver_turmas(dicionario_turma)
 
@@ -93,14 +100,14 @@ while True:
                             if int(escolha) <= len(lista_de_turmas):
                                 deletar_turma(dicionario_turma, lista_de_turmas[int(escolha)], 'turmas')
                                 break
-                        print('\n---Escolha Inválida---')
+                        print('\n--- Escolha Inválida ---')
                         continue
 
             elif escolha == '0':
                 break
 
             else:
-                print('\n---Escolha Inválida---')
+                print('\n--- Escolha Inválida ---')
     elif escolha == '2':
         while True:
             escolha = menu_de_professores()
@@ -109,12 +116,12 @@ while True:
                 while True:
                     nome = input('\n>>> Digite um nome para cadastrar: ')
                     if cadastrar(dicionario_professor, nome, 'professores'):
-                        print('\n---Cadastro Efetuado---')
+                        print('\n--- Cadastro Efetuado ---')
                         break
                     
             elif escolha == '2':
                 if len(dicionario_professor) == 0:
-                    print('\n---Não possui professores cadastradas---')
+                    print(ausencia_cadastro_professores)
                 else:
                     atualizar_loop = True
                     while atualizar_loop:
@@ -131,18 +138,18 @@ while True:
                                     atualizar_loop = False
                                     break
                                     
-                                print('\n---O nome deve ser composto e não pode conter números---')  
+                                print('\n--- O nome deve ser composto e não pode conter números ---')  
                                 continue
 
             elif escolha == '3':
                 if len(dicionario_professor) == 0:
-                    print('\n---Não possui professores cadastradas---')
+                    print(ausencia_cadastro_professores)
                 else:
                     ver_usuario(dicionario_professor, 'Professores')
 
             elif escolha == '4':
                 if len(dicionario_professor) == 0:
-                    print('\n---Não possui professores cadastradas---')
+                    print(ausencia_cadastro_professores)
                 else:
                     while True:
                         nome = input('\n>>> Digite o nome que deseja pesquisar ou [s] para sair: ')
@@ -156,7 +163,7 @@ while True:
             
             elif escolha == '5':
                 if len(dicionario_professor) == 0:
-                    print('\n---Não possui professores cadastradas---')
+                    print(ausencia_cadastro_professores)
                 else:
                     while True:
                         nome = input('\n>>> Digite o nome do professor que deseja ver as turmas ou [s] para sair: ')
@@ -171,7 +178,7 @@ while True:
 
             elif escolha == '6':
                 if len(dicionario_professor) == 0:
-                    print('\n---Não possui professores cadastradas---')
+                    print(ausencia_cadastro_professores)
                 else:
                     print('ver alunos')
             
@@ -187,12 +194,12 @@ while True:
                     nome = input('\n>>> Digite um nome para cadastrar: ')
                     resultado = cadastrar(dicionario_aluno, nome, 'alunos')
                     if resultado:
-                        print('\n---Cadastro Efetuado---')
+                        print('\n--- Cadastro Efetuado ---')
                         break
             
             elif escolha == '2':
                 if len(dicionario_aluno) == 0:
-                    print('\n---Não possui alunos cadastradas---')
+                    print(ausencia_cadastro_professores)
                 else:
                     atualizar_loop = True
                     while atualizar_loop:
@@ -209,18 +216,18 @@ while True:
                                     atualizar_loop = False
                                     break
                                     
-                                print('\n---O nome deve ser composto e não pode conter números---')  
+                                print('\n--- O nome deve ser composto e não pode conter números ---')  
                                 continue
 
             elif escolha == '3':
                 if len(dicionario_aluno) == 0:
-                    print('\n---Não possui alunos cadastradas---')
+                    print(ausencia_cadastro_alunos)
                 else:
                     ver_usuario(dicionario_aluno, 'Alunos')
             
             elif escolha == '4':
                 if len(dicionario_aluno) == 0:
-                    print('\n---Não possui alunos cadastradas---')
+                    print(ausencia_cadastro_alunos)
                 else:
                     while True:
                         nome = input('\n>>> Digite o nome que deseja pesquisar ou [s] para sair: ')
