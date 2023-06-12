@@ -180,13 +180,11 @@ def ver_todas_as_turmas(dicionario):
     print('\n======== MATERIAS ========')
     index = 0
     for materias in dicionario.keys():
-       print(f'{index} - {materias}')
-       lista_de_materias.append(materias)
-       index += 1
+        print(f'{index} - {materias}')
+        lista_de_materias.append(materias)
+        index += 1
 
     return lista_de_materias
-
-
 
 def ver_turmas(dicionario):
 
@@ -224,3 +222,19 @@ def deletar_turma(dicionario, materia, nome_do_arquivo):
     print('\n---Materia deletada com sucesso!---')
     salvar_dicionarios(dicionario, nome_do_arquivo)
     pegar_dicionario(nome_do_arquivo)
+    
+def mostrar_turma(dicionario, turma_selecionada):
+    print(f'\n ======= Turma de {turma_selecionada} =======')
+    dicionario_turma = dicionario[turma_selecionada]
+    matricula_do_professor = ''
+    for professores, alunos in dicionario_turma.items():
+        if professores == 'matricula':
+            matricula_do_professor = alunos
+        else:
+            print(f'\n>>> {professores} - MATRICULA: {matricula_do_professor}')
+            for dicionario_aluno in alunos:
+                for matricula, nome in dicionario_aluno.items():
+                    print(f'\t{nome} - {matricula}')
+    print(f'\n ============================================')
+    
+        
