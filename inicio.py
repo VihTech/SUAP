@@ -5,7 +5,6 @@ dicionario_aluno = pegar_dicionario('alunos')
 dicionario_professor = pegar_dicionario('professores')
 dicionario_turma = pegar_dicionario('turmas')
 
-
 while True:
     escolha = menu_principal()
     
@@ -59,7 +58,6 @@ while True:
                             procurar_professor = False
                             break
 
-
             elif escolha == '2':
                 if len(dicionario_turma) == 0:
                     print('\n---Não possui turmas cadastradas---')
@@ -70,8 +68,17 @@ while True:
                 if len(dicionario_turma) == 0:
                     print('\n---Não possui turmas cadastradas---')
                 else:
-                    print('ver Turma')
-
+                    lista_de_turmas = ver_turmas(dicionario_turma)
+                    if not lista_de_turmas:
+                        break
+                    while True:
+                        turma_a_selecionar = input("\n>>> Selecione a turma na qual você deseja ver ou 's' para sair: ")
+                        if turma_a_selecionar in 'sS':
+                            break
+                        elif turma_a_selecionar.isnumeric():
+                            if int(turma_a_selecionar) <= len(lista_de_turmas):
+                                mostrar_turma(dicionario_turma, lista_de_turmas[int(turma_a_selecionar)])
+                            
             elif escolha == '4':
                 if len(dicionario_turma) == 0:
                     print('\n---Não possui turmas cadastradas---')
