@@ -81,7 +81,7 @@ def pesquisar_usuario(dicionario, nome, acao):
     while True:
         matricula = input(f'\n>>> Digite a matricula que deseja {acao} ou [s] para sair: ')
         if matricula in 'sS':
-            break
+            return False
         else:
             if matricula in dicionario_nomes:
                 return matricula
@@ -242,10 +242,13 @@ def ver_todas_as_turmas(dicionario):
     Função que cuida em mostrar todas as turmas registradas no dicionário principal em formato de menu.
     """
     lista_de_materias = []
-    print('\n======== MATERIAS ========')
+    print('\n=========== MATERIAS ============')
+    print(f'|{"ID":^10} | {"Materia":^20}|')
+    print('-'*33)
     index = 0
     for materias in dicionario.keys():
-        print(f'{index} - {materias}')
+        print(f'|{index:^10} | {materias:^20}|')
+        print('-'*33)
         lista_de_materias.append(materias)
         index += 1
 
@@ -274,9 +277,12 @@ def ver_turmas(dicionario):
                 print('\n--- Materia não encontrada no sistema---')
                 continue
             index = 0
-            print('\n===== MATERIAS ======')
+            print('\n=========== MATERIAS ============')
+            print(f'|{"ID":^10} | {"Materia":^20}|')
+            print('-'*33)
             for materias in lista_de_materias:
-                print(f'{index} - {materias}')
+                print(f'|{index:^10} | {materias:^20}|')
+                print('-'*33)
                 index += 1
             return lista_de_materias
         
