@@ -112,7 +112,7 @@ def checar_professor(dicionario, matricula):
     for materias in lista_de_materias:
         print(f'{index} - {materias}')
         index += 1
-    return True
+    return lista_de_materias
 
 def adicionar_aluno_na_turma(dicionario):
 
@@ -231,7 +231,7 @@ def mostrar_turma(dicionario, turma_selecionada):
         if professores == 'matricula':
             matricula_do_professor = alunos
         else:
-            print(f'\nNome: {professores} - MATRICULA: {matricula_do_professor}')
+            print(f'\nNome: {professores} | MATRICULA: {matricula_do_professor}')
             for dicionario_aluno in alunos:
                 for matricula, nome in dicionario_aluno.items():
                     print(f'\t{nome} - {matricula}')
@@ -321,4 +321,13 @@ def editar_turma(dicionario_turma, dicionario_professor, dicionario_aluno):
 
                             print('\n--- Aluno não esta cadastrado nesta materia ---')
 
-        
+def ver_alunos_de_uma_turma(dicionario, escolha):
+    for alunos in dicionario[escolha].values():
+        if type(alunos) == list:
+            for alunos_da_turma in alunos:
+                print(f"|{'Matricula':^20} | {'Nome':^20}|")
+                print('-'*45)
+                for matricula, nome in alunos_da_turma.items():
+                    print(f'|{matricula:^20} | {nome:^20}|')
+    return True
+                                            
