@@ -1,14 +1,23 @@
 import json
 
 def salvar_dicionarios(dicionario, nome_do_arquivo):
+    """
+    Função que salva os dicionarios principais do código em arquivos '.json'.
+    """
     with open(f'{nome_do_arquivo}.json', 'w') as file:
         json.dump(dicionario, file)
         
 def pegar_dicionario(nome_do_arquivo):
+    """
+    Função que carrega os dicionarios principais do codigo que estão salvos em arquivos '.json'.
+    """
     with open(f'{nome_do_arquivo}.json', 'r') as file:
         return json.load(file)
 
 def matricula_incremental(dicionario):
+    """
+    Função que cuida de tornar as inserções de matriculas incrementais.
+    """
     if len(dicionario) != 0:
         matricula = max(dicionario.keys())
         return int(matricula) + 1
@@ -16,16 +25,25 @@ def matricula_incremental(dicionario):
     return matricula
 
 def tratamento_nome(nome):
+    """
+    Função que cuida em checar se o nome segue os regimentos "duplo e sem numeros", e apos isso editar o nome de 'duplo' para uma palavra unica para a melhor integridade no codigo.
+    """
     if ' ' in nome and nome.replace(' ', '').isalpha():
         return True
     return False
 
 def tratamento_matricula_existente(matricula, dicionario):
+    """
+    Função que verifica se a matricula inserida existe no respectivo icionario principal.
+    """
     if matricula in dicionario:
         return True
     return False
 
 def cadastrar(dicionario, nome, nome_do_arquivo):
+    """
+    Função que cuida em realizar o registro de um usuário no respectivo dicionário principal, recebendo sua inserção.
+    """
     if tratamento_nome(nome):
         dicionario[str(matricula_incremental(dicionario))] = nome
         salvar_dicionarios(dicionario, nome_do_arquivo)
@@ -35,16 +53,22 @@ def cadastrar(dicionario, nome, nome_do_arquivo):
     return False
 
 def pesquisar_usuario(dicionario, nome, acao):
+    """
+    Função que pesquisa um usuário e realiza a compatibilidade da existencia do nome ou sobrenome dele com todos os usuários do tipo em serviço cadastrados, para verificação
+    e busca no respectivo dicionário principal como descrito à baixo.
+    """
     dicionario_nomes = {}
     for matricula, nome_cadastrado in dicionario.items():
         for palvras in nome.split():
             if palvras.lower() in nome_cadastrado.lower():
                 dicionario_nomes[matricula] = nome_cadastrado
-
+    
+    ## Verifica a existência de um usuário.
     if len(dicionario_nomes) == 0:
         print('\n---Usuário não encontrado---')
         return False
     
+    ## Menu que mostra os usuários do tipo em execução.
     print(f'========= USUÁRIOS =========')
     print('=-' * 18 + '=')
     print(f"{'|Nome:':<20} {'|Matricula:':>16}")
@@ -52,7 +76,8 @@ def pesquisar_usuario(dicionario, nome, acao):
             print('-'*37)
             print(f'|{nome:<24} |{matricula:>5}')
     print('=-' * 18 + '=\n')
-
+    
+    ## Loop de execução.
     while True:
         matricula = input(f'\n>>> Digite a matricula que deseja {acao} ou [s] para sair: ')
         if matricula in 'sS':
@@ -65,6 +90,9 @@ def pesquisar_usuario(dicionario, nome, acao):
     return False
 
 def atualizar(dicionario, nome, matricula, nome_do_arquivo):
+    """
+    Função que atualiza o tipo de usuário selecionado em quesito de 'nome' no respectivo dicionário principal.
+    """
     dicionario[matricula] = nome
     print('\n---Atualizado com sucesso!---')
     salvar_dicionarios(dicionario, nome_do_arquivo)
@@ -72,6 +100,9 @@ def atualizar(dicionario, nome, matricula, nome_do_arquivo):
     return True
 
 def ver_usuario(dicionario, tabela):
+    """
+    Função que gera o menu para demonstrar todos os usuários do tipo em execução no respectivo dicionário principal.
+    """
     print(f'========= {tabela:^16} =========')
     print('=-' * 18 + '=')
     print(f"{'|Nome:':<20} {'|Matricula:':>16}")
@@ -81,12 +112,18 @@ def ver_usuario(dicionario, tabela):
     print('=-' * 18 + '=\n')
 
 def apagar(dicionario, matricula, nome_do_arquivo):
+    """
+    Função que cuida em deletar um usuário do tipo em execução no respectivo dicionário principal.
+    """
     del dicionario[matricula]
     print('\n---Apagado com sucesso!---')
     salvar_dicionarios(dicionario, nome_do_arquivo)
     pegar_dicionario(nome_do_arquivo)
 
 def cadastrar_turmas(dicionario, nome_da_turma, professor, alunos, nome_do_arquivo):
+    """
+    Função que cadastra e registra turmas no respectivo dicionário principal(com composição base de 'um professor' e não limitada quantidade de alunos).
+    """
     novo_dicionario = {}
     for matricula, nome in professor.items():
         novo_dicionario = {
@@ -98,15 +135,21 @@ def cadastrar_turmas(dicionario, nome_da_turma, professor, alunos, nome_do_arqui
     pegar_dicionario(nome_do_arquivo)
 
 def checar_professor(dicionario, matricula):
+    """
+    Função que verifica se um professor está presente em alguma turma ou não.
+    """
     lista_de_materias = []
 
     for materia in dicionario.keys():
         if matricula == dicionario[materia]['matricula']:
             lista_de_materias.append(materia)
-
+    
+    ## Resposta para caso o professor não esteja em alguma turma.
     if len(lista_de_materias) == 0:
         print('\n---Esse professor não possui turmas---')
         return False
+    
+    ## Sequncia que mostra suas turmas em caso de ele estar cadastrado em alguma.
     index = 0
     print('\n-------Materias--------')
     for materias in lista_de_materias:
@@ -115,7 +158,9 @@ def checar_professor(dicionario, matricula):
     return lista_de_materias
 
 def adicionar_aluno_na_turma(dicionario):
-
+    """
+    Função que faz a inserção de um determinado aluno em uma turma selecionada do dicionário principal.
+    """
     while True:
         nome_usuario = input('\n>>> Digite o nome do aluno que deseja colocar ou [s] para sair: ')
 
@@ -132,6 +177,10 @@ def adicionar_aluno_na_turma(dicionario):
 
 
 def tratamento_apagando_professor(dicionario, matricula, nome_do_arquivo):
+    """
+    Função que cuida em deletar o registro de um professor no respectivo dicionário principal, e cuida também em verificar se o mesmo está ou não inserido em turmas, e caso sim,
+    a respectiva turma também sera apagada de seu respectivo dicionário principal.
+    """
     lista_para_deletar = []
     for materias in dicionario.keys():
         if matricula == dicionario[materias]['matricula']:
@@ -143,6 +192,10 @@ def tratamento_apagando_professor(dicionario, matricula, nome_do_arquivo):
     pegar_dicionario(nome_do_arquivo)
 
 def tratamento_atualizando_professor(dicionario_turma, dicionario_professor, matricula, novo_nome, nome_do_arquivo):
+    """
+    Função que cuida em atualizar o registro de um professor em seu respectivo dicionário principal, e se ele está inserido ou não em turmas, e caso sim, seu registro será
+    atualizado na mesma.
+    """
     for materias in dicionario_turma.keys():
         if matricula == dicionario_turma[materias]['matricula']:
             dicionario_turma[materias] = {
@@ -153,6 +206,10 @@ def tratamento_atualizando_professor(dicionario_turma, dicionario_professor, mat
     pegar_dicionario(nome_do_arquivo)
 
 def tratamento_apagar_aluno(dicionario, matricula, nome_do_arquivo):
+    """
+    Função que cuida em deletar o registro de um aluno no respectivo dicionário principal, e cuida também em verificar se o mesmo está ou não inserido em turmas, e caso sim,
+    a respectiva turma também sera atualizada com a remoção do aluno em seu respectivo dicionário principal.
+    """
     for materias in dicionario.values():
         for alunos in materias.values():
             index = 0
@@ -165,6 +222,10 @@ def tratamento_apagar_aluno(dicionario, matricula, nome_do_arquivo):
     pegar_dicionario(nome_do_arquivo)
 
 def tratamento_atualizando_aluno(dicionario_turma, matricula, novo_nome, nome_do_arquivo):
+    """
+    Função que cuida em atualizar o registro de um aluno em seu respectivo dicionário principal, e se ele está inserido ou não em turmas, e caso sim, seu registro será
+    atualizado na mesma.
+    """
     for materias in dicionario_turma.values():
         for alunos in materias.values():
             if type(alunos) == list:
@@ -176,6 +237,9 @@ def tratamento_atualizando_aluno(dicionario_turma, matricula, novo_nome, nome_do
     pegar_dicionario(nome_do_arquivo)
 
 def ver_todas_as_turmas(dicionario):
+    """
+    Função que cuida em mostrar todas as turmas registradas no dicionário principal em formato de menu.
+    """
     lista_de_materias = []
     print('\n======== MATERIAS ========')
     index = 0
@@ -187,17 +251,24 @@ def ver_todas_as_turmas(dicionario):
     return lista_de_materias
 
 def ver_turmas(dicionario):
-
+    """
+    Função que cuida em receber uma ação relacionada ao tipo de busca no dicionário principal de turmas, e respectivamente, ou mostrar todas em utencílio da função anterior,
+    e ou receber especificamente a inserção do nome da turma à se procurar, verificar sua existência, e se obedecido mostrar a mesma como na sequencia(utilizando da função
+    em dois quadrantes a baixo).
+    """
     while True:
         lista_de_materias = []
         escolha = input("\n>>> Pesquiser por uma turma ou \n[1] Ver todas \n[s] Sair\nEscolha: ") 
         if escolha != '1' and escolha != 's':
+            
+            ## Parte que pesquisa a partir da inserção do usuário a matéria por um de deus possíveis nomes.
             for materias in dicionario.keys():
                 for palavras in escolha.split():
                     if palavras.title() in materias:
                         if materias not in lista_de_materias:
                             lista_de_materias.append(materias)
-
+            
+            ## Verificador da existência da matéria como registro do dicionário principal.
             if len(lista_de_materias) == 0:
                 print('\n--- Materia não encontrada no sistema---')
                 continue
@@ -207,10 +278,11 @@ def ver_turmas(dicionario):
                 print(f'{index} - {materias}')
                 index += 1
             return lista_de_materias
-
+        
+        ## Opção que caso selecionada mostra todas as turmas registradas no dicionário principal.
         elif escolha == '1':
             return ver_todas_as_turmas(dicionario)
-        
+        ## Possível saída.
         elif escolha in 'sS':
             return False
             
@@ -218,18 +290,26 @@ def ver_turmas(dicionario):
         continue
 
 def deletar_turma(dicionario, materia, nome_do_arquivo):
+    """
+    Função que deleta uma turma específica do dicionário principal.
+    """
     del dicionario[materia]
     print('\n---Materia deletada com sucesso!---')
     salvar_dicionarios(dicionario, nome_do_arquivo)
     pegar_dicionario(nome_do_arquivo)
     
 def mostrar_turma(dicionario, turma_selecionada):
+    """
+    Função que cuida em mostrar uma turma específica selecionada pós pesquisa da função em dois quadrantes a cima.
+    """
     print(f'\n ======= Turma de {turma_selecionada} =======')
     dicionario_turma = dicionario[turma_selecionada]
     matricula_do_professor = ''
     for professores, alunos in dicionario_turma.items():
         if professores == 'matricula':
             matricula_do_professor = alunos
+        
+        ## Semi-menu para demonstração da turma selecionada.
         else:
             print(f'\nNome: {professores} | MATRICULA: {matricula_do_professor}')
             for dicionario_aluno in alunos:
