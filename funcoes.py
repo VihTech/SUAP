@@ -422,6 +422,12 @@ def editar_turma(dicionario_turma, dicionario_professor, dicionario_aluno):
            # Editando o aluno
            if editar_turma_aluno(dicionario_turma,dicionario_aluno, lista_de_turmas, turma_selecionada):
                return  True
+        
+        elif pessoa_a_editar == '0':
+            return True
+        
+        else:
+            print('\n--- Escolha Inválida ---')
 
 def ver_alunos_de_uma_turma(dicionario, escolha):
     """
