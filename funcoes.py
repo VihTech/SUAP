@@ -133,6 +133,7 @@ def cadastrar_turmas(dicionario, nome_da_turma, professor, alunos, nome_do_arqui
     dicionario[nome_da_turma] = novo_dicionario
     salvar_dicionarios(dicionario, nome_do_arquivo)
     pegar_dicionario(nome_do_arquivo)
+    print("\n -- Turma Cadastrada com sucesso! --")
 
 def checar_professor(dicionario, matricula):
     """
