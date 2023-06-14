@@ -135,7 +135,7 @@ def cadastrar_turmas(dicionario, nome_da_turma, professor, alunos, nome_do_arqui
     pegar_dicionario(nome_do_arquivo)
     print("\n -- Turma Cadastrada com sucesso! --")
 
-def checar_professor(dicionario, matricula):
+def checar_turmas_de_um_professor(dicionario, matricula):
     """
     Função que verifica se um professor está presente em alguma turma ou não.
     """
@@ -257,7 +257,7 @@ def ver_todas_as_turmas(dicionario):
 
     return lista_de_materias
 
-def ver_turmas(dicionario):
+def ver_turma_especifica(dicionario):
     """
     Função que cuida em receber uma ação relacionada ao tipo de busca no dicionário principal de turmas, e respectivamente, ou mostrar todas em utencílio da função anterior,
     e ou receber especificamente a inserção do nome da turma à se procurar, verificar sua existência, e se obedecido mostrar a mesma como na sequencia(utilizando da função
@@ -414,7 +414,7 @@ def editar_turma_aluno(dicionario_turma,dicionario_aluno, lista_de_turmas, turma
                 
 
 def editar_turma(dicionario_turma, dicionario_professor, dicionario_aluno):
-    lista_de_turmas = ver_turmas(dicionario_turma)
+    lista_de_turmas = ver_turma_especifica(dicionario_turma)
     if not lista_de_turmas:
         return True
     while True:
@@ -454,4 +454,4 @@ def ver_alunos_de_uma_turma(dicionario, escolha):
                     print(f'|{matricula:^20} | {nome:^20}|')
                     print('-'*45)
     return True
-                                            
+                    
