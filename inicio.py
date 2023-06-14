@@ -176,7 +176,9 @@ while True:
 
                 ## Loop para inserção do nome do professor.
                 while True:
-                    nome = input('\n>>> Digite um nome para cadastrar: ')
+                    nome = input('\n>>> Digite um nome para cadastrar ou "s" para sair: ')
+                    if nome in 'sS':
+                        break
                     ## Verificação de regimentos do nome do professor a partir da função.
                     if cadastrar(dicionario_professor, nome, 'professores'):
                         print('\n--- Cadastro Efetuado ---')
@@ -334,8 +336,13 @@ while True:
             escolha = menu_de_alunos()
 
             if escolha == '1':
+                ## Cadastrando um aluno.
+                
+                ## Loop de inserção do nome do aluno 
                 while True:
-                    nome = input('\n>>> Digite um nome para cadastrar: ')
+                    nome = input('\n>>> Digite um nome para cadastrar ou "s" para sair: ')
+                    if nome in 'sS':
+                        break
                     resultado = cadastrar(dicionario_aluno, nome, 'alunos')
                     if resultado:
                         print('\n--- Cadastro Efetuado ---')
