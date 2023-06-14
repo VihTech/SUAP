@@ -314,8 +314,9 @@ def mostrar_turma(dicionario, turma_selecionada):
         else:
             print(f'\nNome: {professores} | MATRICULA: {matricula_do_professor}')
             for dicionario_aluno in alunos:
-                for matricula, nome in dicionario_aluno.items():
-                    print(f'\t{nome} - {matricula}')
+                if type(dicionario_aluno) == dict:
+                    for matricula, nome in dicionario_aluno.items():
+                        print(f'\t{nome} - {matricula}')
     print(f'\n ============================================')
 
 def editar_turma_professor(dicionario_turma, dicionario_professor, lista_de_turmas, turma_selecionada):
@@ -336,6 +337,55 @@ def editar_turma_professor(dicionario_turma, dicionario_professor, lista_de_turm
                 print("\n-- O professor da turma foi atualizado com sucesso --")
                 return True
 
+def editar_turma_aluno_adicionar(dicionario_aluno, lista_de_alunos):
+    while True:
+        nome_aluno_alterar = input("\n>>> Insira o nome do aluno a se pesquisar: ")
+        matricula_aluno_atualizar = pesquisar_usuario(dicionario_aluno, nome_aluno_alterar, 'adicionar')
+        if matricula_aluno_atualizar == False:
+            break
+        dicionario_para_atualizacao = {matricula_aluno_atualizar: dicionario_aluno[matricula_aluno_atualizar]}
+        if dicionario_para_atualizacao in lista_de_alunos:
+            print("\n-- Este aluno já esta cadastrado nesta turma! --")
+            continue
+        lista_de_alunos.append(dicionario_para_atualizacao)
+        print("\n-- Aluno adicionado com sucesso! --")
+        return True
+
+def editar_turma_aluno_deletar(dicionario_aluno, lista_de_alunos):
+    while True:
+        nome_aluno_apagar = input("\n>>> Insira o nome do aluno a se pesquisar ou aperte [1] para ver todos: ")
+        if nome_aluno_apagar == '1':
+            for alunos in lista_de_alunos:
+                for matricula, nome in alunos.items():
+                    print(f"{matricula} - {nome}")
+            matricula_aluno_apagar = input("\n>>> Digite a matricula do aluno a se apagar ou 's' para sair: ")
+            if matricula_aluno_apagar in 'sS':
+                break
+            index = 0
+            for alunos in lista_de_alunos:
+                for matricula in alunos.keys():
+
+                    if matricula == matricula_aluno_apagar:
+                        lista_de_alunos.pop(index)
+                        print('\n--- Aluno deletado da turma com sucesso! ---')   
+                        return True
+                index += 1
+
+        matricula_do_aluno = pesquisar_usuario(dicionario_aluno, nome_aluno_apagar, 'deletar')
+        if not matricula_do_aluno:
+            break
+        index = 0
+        for alunos in lista_de_alunos:
+            for matricula in alunos.keys():
+
+                if matricula == matricula_do_aluno:
+                    lista_de_alunos.pop(index)
+                    print('\n--- Aluno deletado da turma com sucesso! ---')          
+                    return True
+            index += 1
+
+        print('\n--- Aluno não esta cadastrado nesta materia ---')
+
 def editar_turma_aluno(dicionario_turma,dicionario_aluno, lista_de_turmas, turma_selecionada):
      while True:
         dicionario_de_alunos = dicionario_turma[lista_de_turmas[int(turma_selecionada)]]
@@ -344,51 +394,12 @@ def editar_turma_aluno(dicionario_turma,dicionario_aluno, lista_de_turmas, turma
         while True:
             acao = input("\n>>> Insira a ação que deseja realizar: \n[1] - Adicionar \n[2] - Remover \nEscolha: ")
             if acao == '1':
-                nome_aluno_alterar = input("\n>>> Insira o nome do aluno a se pesquisar: ")
-                matricula_aluno_atualizar = pesquisar_usuario(dicionario_aluno, nome_aluno_alterar, 'adicionar')
-                if matricula_aluno_atualizar == False:
-                    break
-                dicionario_para_atualizacao = {matricula_aluno_atualizar: dicionario_aluno[matricula_aluno_atualizar]}
-                if dicionario_para_atualizacao in lista_de_alunos:
-                    print("\n-- Este aluno já esta cadastrado nesta turma! --")
-                    continue
-                lista_de_alunos.append(dicionario_para_atualizacao)
-                print("\n-- Aluno adicionado com sucesso! --")
-                return True
+                if editar_turma_aluno_adicionar(dicionario_aluno, lista_de_alunos):
+                    return True
             elif acao == '2':
-                while True:
-                    nome_aluno_apagar = input("\n>>> Insira o nome do aluno a se pesquisar ou aperte [1] para ver todos: ")
-                    if nome_aluno_apagar == '1':
-                        for alunos in lista_de_alunos:
-                            for matricula, nome in alunos.items():
-                                print(f"{matricula} - {nome}")
-                        matricula_aluno_apagar = input("\n>>> Digite a matricula do aluno a se apagar ou 's' para sair: ")
-                        if matricula_aluno_apagar in 'sS':
-                            break
-                        index = 0
-                        for alunos in lista_de_alunos:
-                            for matricula in alunos.keys():
-
-                                if matricula == matricula_aluno_apagar:
-                                    lista_de_alunos.pop(index)
-                                    print('\n--- Aluno deletado da turma com sucesso! ---')   
-                                    return True
-                            index += 1
-
-                    matricula_do_aluno = pesquisar_usuario(dicionario_aluno, nome_aluno_apagar, 'deletar')
-                    if not matricula_do_aluno:
-                        break
-                    index = 0
-                    for alunos in lista_de_alunos:
-                        for matricula in alunos.keys():
-
-                            if matricula == matricula_do_aluno:
-                                lista_de_alunos.pop(index)
-                                print('\n--- Aluno deletado da turma com sucesso! ---')          
-                                return True
-                        index += 1
-
-                    print('\n--- Aluno não esta cadastrado nesta materia ---')
+                if editar_turma_aluno_deletar(dicionario_aluno, lista_de_alunos):
+                    return True
+                
 
 def editar_turma(dicionario_turma, dicionario_professor, dicionario_aluno):
     lista_de_turmas = ver_turmas(dicionario_turma)
