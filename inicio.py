@@ -136,6 +136,8 @@ while True:
                             break
                         else:
                             matricula = pesquisar_usuario(dicionario_professor, nome, 'atualizar')
+                            if not matricula:
+                                continue
                             while True:
                                 nome = input('\n>>> Digite o novo nome que deseja colocar: ')
                                 if tratamento_nome(nome):
@@ -163,6 +165,8 @@ while True:
                             break
                         else:
                             matricula = pesquisar_usuario(dicionario_professor, nome, 'apagar')
+                            if not matricula:
+                                continue
                             apagar(dicionario_professor, matricula, 'professores' )
                             tratamento_apagando_professor(dicionario_turma, matricula, 'turmas')
                             break
@@ -232,6 +236,8 @@ while True:
                             break
                         else:
                             matricula = pesquisar_usuario(dicionario_aluno, nome, 'atualizar')
+                            if not matricula:
+                                continue
                             while True:
                                 nome = input('\n>>> Digite o novo nome que deseja colocar: ')
                                 if tratamento_nome(nome):
