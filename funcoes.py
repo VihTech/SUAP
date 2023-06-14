@@ -152,9 +152,12 @@ def checar_professor(dicionario, matricula):
     
     ## Sequncia que mostra suas turmas em caso de ele estar cadastrado em alguma.
     index = 0
-    print('\n-------Materias--------')
+    print('\n-----------Materias-------------')
+    print(f'{"ID":^10} | {"MATERIA":^20}')
+    print('-'*33)
     for materias in lista_de_materias:
-        print(f'{index} - {materias}')
+        print(f'{index:^10} - {materias:^20}')
+        print('-'*33)
         index += 1
     return lista_de_materias
 
@@ -444,10 +447,11 @@ def ver_alunos_de_uma_turma(dicionario, escolha):
     """
     for alunos in dicionario[escolha].values():
         if type(alunos) == list:
-            for alunos_da_turma in alunos:
-                print(f"|{'Matricula':^20} | {'Nome':^20}|")
-                print('-'*45)
+            print(f"|{'Matricula':^20} | {'Nome':^20}|")
+            print('-'*45)
+            for alunos_da_turma in alunos:       
                 for matricula, nome in alunos_da_turma.items():
                     print(f'|{matricula:^20} | {nome:^20}|')
+                    print('-'*45)
     return True
                                             
