@@ -69,7 +69,10 @@ while True:
                 if len(dicionario_turma) == 0:
                     print(ausencia_cadastro_turmas)
                 else:
-                    print('Editar Turma')
+                    editar_turma(dicionario_turma, dicionario_professor, dicionario_aluno)
+                    salvar_dicionarios(dicionario_turma, 'turmas')
+                    pegar_dicionario('turmas')
+
 
             elif escolha == '3':
                 if len(dicionario_turma) == 0:
