@@ -155,7 +155,7 @@ while True:
                         continue
 
             elif escolha == '0':
-                ## Saída principal do código.
+                ## Saída do menu de coordenador e volta ao código principal.
                 break
 
             ## Possível erro de ausência de existência de uma escolha.
@@ -177,6 +177,8 @@ while True:
                 ## Loop para inserção do nome do professor.
                 while True:
                     nome = input('\n>>> Digite um nome para cadastrar ou "s" para sair: ')
+                    
+                    ## Possível saída.
                     if nome in 'sS':
                         break
                     ## Verificação de regimentos do nome do professor a partir da função.
@@ -312,9 +314,10 @@ while True:
                         ## Loop de escolha da matéria do professor(listadas) a se ver os alunos.
                         while True:
                             escolha = input('\n>>> Escolha uma máteria para ver os alunos: ')
-                            
+                            if not escolha.isnumeric():
+                                print('\n--- Valor inválido ---')
                             ## Verificador de integridade de escolha.
-                            if int(escolha) > len(lista_de_materias) or not escolha.isnumeric():
+                            if int(escolha) > len(lista_de_materias):
                                 print('\n--- Valor inválido ---')
                                 continue
                             
@@ -341,30 +344,46 @@ while True:
                 ## Loop de inserção do nome do aluno 
                 while True:
                     nome = input('\n>>> Digite um nome para cadastrar ou "s" para sair: ')
+                    
+                    ## Possível saída.
                     if nome in 'sS':
                         break
+                    
+                    ## Coleta do nome inserido, redirecionando-o para a função de cadastro.
                     resultado = cadastrar(dicionario_aluno, nome, 'alunos')
                     if resultado:
                         print('\n--- Cadastro Efetuado ---')
                         break
             
             elif escolha == '2':
+                ## Editando o nome de um aluno selecionado.
+
+                ## Verificador de integridade.
                 if len(dicionario_aluno) == 0:
                     print(ausencia_cadastro_professores)
                 else:
                     atualizar_loop = True
+                    
+                    ## Loop para inserção do aluno a atualizar com variável verdadeira.
                     while atualizar_loop:
                         nome = input('\n>>> Digite o nome que deseja pesquisar ou [s] para sair: ')
+                        
+                        ## Possível saída.
                         if nome in 'sS':
                             break
                         else:
+                            
+                            ## Coleta da matrícula do aluno a se atualizar, a partir da função de "Pesquisa Geral"
                             matricula = pesquisar_usuario(dicionario_aluno, nome, 'atualizar')
 
                             if not matricula:
                                 continue
 
+                            ## Loop de inserção do novo nome do aluno selecionado à cima.
                             while True:
                                 nome = input('\n>>> Digite o novo nome que deseja colocar: ')
+                                
+                                ## Chamada das funções de integridade e atualização baseado no novo nome inserido.
                                 if tratamento_nome(nome):
                                     tratamento_atualizando_aluno(dicionario_turma, matricula, nome, 'turmas')
                                     atualizar(dicionario_aluno, nome, matricula, 'alunos')
@@ -375,9 +394,13 @@ while True:
                                 continue
 
             elif escolha == '3':
+                ## Visualizar alunos.
+
+                ## Verificadors de integridade.
                 if len(dicionario_aluno) == 0:
                     print(ausencia_cadastro_alunos)
                 else:
+                    ##
                     ver_usuario(dicionario_aluno, 'Alunos')
             
             elif escolha == '4':
