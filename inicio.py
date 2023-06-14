@@ -183,8 +183,26 @@ while True:
                 if len(dicionario_professor) == 0:
                     print(ausencia_cadastro_professores)
                 else:
-                    print('ver alunos')
-            
+                    while True:
+                        nome = input('\n>>> Digite o nome do professor que deseja ver as turmas ou [s] para sair: ')
+                        if nome in 'sS':
+                            break
+                        matricula = pesquisar_usuario(dicionario_professor, nome, 'ver')
+
+                        if matricula == False:
+                            continue   
+                        lista_de_materias =  checar_professor(dicionario_turma, matricula)
+                        if not lista_de_materias:
+                            continue
+                        while True:
+                            escolha = input('\n>>> Escolha uma máteria para ver os alunos: ')
+                            if int(escolha) > len(lista_de_materias) or not escolha.isnumeric():
+                                print('\n--- Valor inválido ---')
+                                continue
+                            if ver_alunos_de_uma_turma(dicionario_turma, lista_de_materias[int(escolha)]):
+                                break
+
+
             elif escolha == '0':
                 break
 
