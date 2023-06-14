@@ -309,7 +309,7 @@ def mostrar_turma(dicionario, turma_selecionada):
     """
     Função que cuida em mostrar uma turma específica selecionada pós pesquisa da função em dois quadrantes a cima.
     """
-    print(f'\n ======= Turma de {turma_selecionada} =======')
+    print(f'\n ========== Turma de {turma_selecionada} ==========')
     dicionario_turma = dicionario[turma_selecionada]
     matricula_do_professor = ''
     for professores, alunos in dicionario_turma.items():
@@ -318,12 +318,15 @@ def mostrar_turma(dicionario, turma_selecionada):
         
         ## Semi-menu para demonstração da turma selecionada.
         else:
-            print(f'\nNome: {professores} | MATRICULA: {matricula_do_professor}')
+            print(f'\n{f"PROFESSOR: {professores}":^20} | {f"MATRICULA: {matricula_do_professor}":^20}')
+            print("-"*43)
+            print(f"{'NOME':^20} | {'MATRICULA':^20}")
+            print("-"*43)
             for dicionario_aluno in alunos:
                 if type(dicionario_aluno) == dict:
                     for matricula, nome in dicionario_aluno.items():
-                        print(f'\t{nome} - {matricula}')
-    print(f'\n ============================================')
+                        print(f'{nome:^20} | {matricula:^20}')
+                        print("-"*43)
 
 def editar_turma_professor(dicionario_turma, dicionario_professor, lista_de_turmas, turma_selecionada):
     while True:
