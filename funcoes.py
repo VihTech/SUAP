@@ -402,6 +402,9 @@ def editar_turma(dicionario_turma, dicionario_professor, dicionario_aluno):
                             print('\n--- Aluno não esta cadastrado nesta materia ---')
 
 def ver_alunos_de_uma_turma(dicionario, escolha):
+    """
+    Função que verifica a existencia de alunos em uma turma e a mostra ao usuário.
+    """
     for alunos in dicionario[escolha].values():
         if type(alunos) == list:
             for alunos_da_turma in alunos:
