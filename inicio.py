@@ -21,6 +21,9 @@ while True:
 
             if escolha == '1':
                 adicionar_turma = True
+                if len(dicionario_aluno) == 0:
+                    print("\n -- Não existem alunos cadastrados!, Tente criar um --")
+                    continue
                 if len(dicionario_professor) == 0:
                     print('\n--- Sem professores cadastrados não é possível criar uma turma ---')
                     continue              
