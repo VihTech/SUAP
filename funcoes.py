@@ -332,6 +332,9 @@ def mostrar_turma(dicionario, turma_selecionada):
                         print("-"*43)
 
 def editar_turma_professor(dicionario_turma, dicionario_professor, lista_de_turmas, turma_selecionada):
+    """
+    Função para editar um professor dentro de uma turma.
+    """
     while True:
         nome_professor_procurar = input('\n>>> Insira o nome do professor a se pesquisar: ')
         matricula_prof_atualizar = pesquisar_usuario(dicionario_professor, nome_professor_procurar, 'atualizar')
@@ -350,6 +353,9 @@ def editar_turma_professor(dicionario_turma, dicionario_professor, lista_de_turm
                 return True
 
 def editar_turma_aluno_adicionar(dicionario_aluno, lista_de_alunos):
+    """
+    Função para adicionar aluno a uma turma específica.
+    """
     while True:
         nome_aluno_alterar = input("\n>>> Insira o nome do aluno a se pesquisar: ")
         matricula_aluno_atualizar = pesquisar_usuario(dicionario_aluno, nome_aluno_alterar, 'adicionar')
@@ -364,12 +370,18 @@ def editar_turma_aluno_adicionar(dicionario_aluno, lista_de_alunos):
         return True
 
 def editar_turma_aluno_deletar(dicionario_aluno, lista_de_alunos):
+    """
+    Função para deletar um aluno de uma turma específica.
+    """
     while True:
         nome_aluno_apagar = input("\n>>> Insira o nome do aluno a se pesquisar ou aperte [1] para ver todos: ")
         if nome_aluno_apagar == '1':
+            print(f'{"MATRICULA":^10} | {"NOME":^20}')
+            print('-'*23)
             for alunos in lista_de_alunos:
                 for matricula, nome in alunos.items():
-                    print(f"{matricula} - {nome}")
+                    print(f"{matricula:^10} | {nome:^20}")
+                    print('-'*23)
             matricula_aluno_apagar = input("\n>>> Digite a matricula do aluno a se apagar ou 's' para sair: ")
             if matricula_aluno_apagar in 'sS':
                 break
@@ -399,7 +411,10 @@ def editar_turma_aluno_deletar(dicionario_aluno, lista_de_alunos):
         print('\n--- Aluno não esta cadastrado nesta materia ---')
 
 def editar_turma_aluno(dicionario_turma,dicionario_aluno, lista_de_turmas, turma_selecionada):
-     while True:
+    """
+    Função que recebe a opção escolhida pelo usuário.
+    """
+    while True:
         dicionario_de_alunos = dicionario_turma[lista_de_turmas[int(turma_selecionada)]]
         for alunos in dicionario_de_alunos.values():
             lista_de_alunos = alunos
@@ -414,6 +429,9 @@ def editar_turma_aluno(dicionario_turma,dicionario_aluno, lista_de_turmas, turma
                 
 
 def editar_turma(dicionario_turma, dicionario_professor, dicionario_aluno):
+    """
+    Função para editar a turma, recebendo o tipo de usuário a se editar.
+    """
     lista_de_turmas = ver_turma_especifica(dicionario_turma)
     if not lista_de_turmas:
         return True
@@ -454,4 +472,4 @@ def ver_alunos_de_uma_turma(dicionario, escolha):
                     print(f'|{matricula:^20} | {nome:^20}|')
                     print('-'*45)
     return True
-                    
+ 
