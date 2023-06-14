@@ -97,7 +97,7 @@ while True:
             elif escolha == '2':
                 ## Edição de uma turma.
 
-                ## Verificador de integridade.
+                ## Verificadores de integridade.
                 if len(dicionario_turma) == 0:
                     print(ausencia_cadastro_turmas)
                 else:
@@ -109,7 +109,7 @@ while True:
             elif escolha == '3':
                 ## Visualizar turma(as).
 
-                ## Verificador de integridade.
+                ## Verificadores de integridade.
                 if len(dicionario_turma) == 0:
                     print(ausencia_cadastro_turmas)
                 else:
@@ -134,7 +134,7 @@ while True:
             elif escolha == '4':
                 ## Apagar determinada turma.
 
-                ## Verificador de integridade.
+                ## Verificadores de integridade.
                 if len(dicionario_turma) == 0:
                     print(ausencia_cadastro_turmas)
                 else:
@@ -189,7 +189,7 @@ while True:
             elif escolha == '2':
                 ## Edição de um professor.
 
-                ## Verificador de erro.
+                ## Verificadores de integridade
                 if len(dicionario_professor) == 0:
                     print(ausencia_cadastro_professores)
                 else:
@@ -227,7 +227,7 @@ while True:
             elif escolha == '3':
                 ## Ver professores cadastrados.
                 
-                ## Verificador de erro.
+                ## Verificadores de integridade
                 if len(dicionario_professor) == 0:
                     print(ausencia_cadastro_professores)
                 else:
@@ -237,7 +237,7 @@ while True:
             elif escolha == '4':
                 ## Excluir um professor.
 
-                ## Verificador de erro.
+                ## Verificadores de integridade
                 if len(dicionario_professor) == 0:
                     print(ausencia_cadastro_professores)
                 else:
@@ -262,7 +262,7 @@ while True:
             elif escolha == '5':
                 ## Visualizar as turmas de um professor.
                 
-                ## Verificador de erro.
+                ## Verificadores de integridade.
                 if len(dicionario_professor) == 0:
                     print(ausencia_cadastro_professores)
                 else:
@@ -286,7 +286,7 @@ while True:
             elif escolha == '6':
                 ## Visualizar os alunos de uma turma específica de um professor.
                 
-                ## Verificador de erro.
+                ## Verificadores de integridade.
                 if len(dicionario_professor) == 0:
                     print(ausencia_cadastro_professores)
 
@@ -358,7 +358,7 @@ while True:
             elif escolha == '2':
                 ## Editando o nome de um aluno selecionado.
 
-                ## Verificador de integridade.
+                ## Verificadores de integridade.
                 if len(dicionario_aluno) == 0:
                     print(ausencia_cadastro_professores)
                 else:
@@ -396,36 +396,48 @@ while True:
             elif escolha == '3':
                 ## Visualizar alunos.
 
-                ## Verificadors de integridade.
+                ## Verificadores de integridade.
                 if len(dicionario_aluno) == 0:
                     print(ausencia_cadastro_alunos)
                 else:
-                    ##
+                    ## Chamada da função que exibe todos os usuários(neste caso, alunos) cadastrados no dicionário principal.
                     ver_usuario(dicionario_aluno, 'Alunos')
             
             elif escolha == '4':
+                ## Apagar um aluno.
+
+                ## Verificadores de integridade.
                 if len(dicionario_aluno) == 0:
                     print(ausencia_cadastro_alunos)
                 else:
+                    
+                    ## Loop para inserção do aluno a apagar.
                     while True:
                         nome = input('\n>>> Digite o nome que deseja pesquisar ou [s] para sair: ')
+                        
+                        ## Possível saída.
                         if nome in 'sS':
                             break
                         else:
+                            ## Coleta da matrícula do aluno a se apagar, a partir da função de "Pesquisa Geral"
                             matricula = pesquisar_usuario(dicionario_aluno, nome, 'apagar')
 
                             if matricula == False:
                                 continue
+                            ## Chamada das funções de apagar alunos, dentro e fora de turmas.
                             apagar(dicionario_aluno, matricula, 'alunos' )
                             tratamento_apagar_aluno(dicionario_turma, matricula, 'turmas')
                             break
 
             elif escolha == '0':
+                ## Saída do menu de Alunos, e volta ao menu principal.
                 break
     
     elif escolha == '0':
+        ## Saída do código principal e encerramento do programa.
         print('\n---Programa encerrado---')
         break
 
     else:
+        ## Possível escolha inválida.
         print('\n---Escolha Inválida---')
